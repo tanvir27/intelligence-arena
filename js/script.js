@@ -12,7 +12,7 @@ const displayAiData = (aiDatas) => {
     aiDatas.forEach((aiData) => {
         const aiDataDiv = document.createElement("div");
         aiDataDiv.classList.add("col");
-        // set innerHtml otherwise we cant show the aiData in dsiplay
+        // set innerHtml to show the aiData in dsiplay
         aiDataDiv.innerHTML = `
         <div class="card h-100">
         <img src="${aiData.image}" class="card-img-top img-fluid p-3" alt="...">
@@ -39,6 +39,22 @@ const displayAiData = (aiDatas) => {
         //  append child the aiData container div
         aiDataContainer.appendChild(aiDataDiv);
       });
+
+      // loader stopp 
+      toggleSpinner(false);
 }
 
- 
+document.getElementById('see_more_btn').addEventListener('click', function(){
+    console.log('object');
+    toggleSpinner(true);
+})
+
+ // loader part 
+ const toggleSpinner = (isLoading) => {
+    const loaderSection = document.getElementById("loader");
+    if (isLoading) {
+      loaderSection.classList.remove("d-none");
+    } else {
+      loaderSection.classList.add("d-none");
+    }
+  };
