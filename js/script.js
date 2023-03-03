@@ -8,7 +8,8 @@ const loadData = () => {
 
 // display all data using this function
 const displayAiData = (aiDatas) => {
-  // toggleSpinner(true);
+  // start loader before show the data
+  toggleSpinner(true);
     const aiDataContainer = document.getElementById("aiData_container"); // get the container by id
     // aiDataContainer.textContent ='';
     allData = aiDatas;
@@ -46,8 +47,8 @@ const displayAiData = (aiDatas) => {
         //  append child the aiData container div
         aiDataContainer.appendChild(aiDataDiv);
       });
-      // loader stopp 
-      // toggleSpinner(false);
+      // loader stop after show the data
+      toggleSpinner(false);
 }
 
 document.getElementById('see_more_btn').addEventListener('click', function(){
