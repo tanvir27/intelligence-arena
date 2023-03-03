@@ -1,11 +1,11 @@
+// fetch the api 
 const loadData = () => {
     fetch(`https://openapi.programming-hero.com/api/ai/tools`)
     .then(res => res.json())
     .then(data => displayAiData((data.data.tools)))
 };
 
-
-
+// display all data using this function
 const displayAiData = (aiDatas) => {
     const aiDataContainer = document.getElementById("aiData_container"); // get the container by id
     aiDatas.forEach((aiData) => {
@@ -14,7 +14,7 @@ const displayAiData = (aiDatas) => {
         // set innerHtml to show the aiData in dsiplay
         aiDataDiv.innerHTML = `
         <div class="card h-100">
-        <img src="${aiData.image}" class="card-img-top img-fluid p-3" alt="...">
+        <img src="${aiData.image}" class="card-img-top rounded img-fluid p-3" alt="...">
         <div class="card-body">
           <h5 class="card-title fs-3 fw-bold">Features</h5>
           <p class="card-text">
@@ -59,7 +59,6 @@ const featuresItemShow = feature =>{
   }
   return featureItem;
 }
-
 
  // loader part 
 //  const toggleSpinner = (isLoading) => {
