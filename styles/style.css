@@ -1,7 +1,8 @@
 /* accuracy button responsive  */
 @media screen and (max-width: 576px) {
     .position_accuracy_btn{
-        bottom: 180px !important;
-        left: 160px !important;
+        bottom: 120px !important;
+        left: 100px !important;
     }
+
 }

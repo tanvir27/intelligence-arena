@@ -182,6 +182,7 @@ const loadModalDetails = id => {
   .then(data => displayModalDetails((data.data)))
 };
 
+// display modal details
 const displayModalDetails =(data) =>{
   // console.log(data);
   const modalBody = document.getElementById('modal-body');
@@ -207,7 +208,7 @@ const displayModalDetails =(data) =>{
 
           <div class="col-sm-12 col-md-4 ">
             <div class="p-3 border bg-light rounded-4">
-             <p class="text-success fw-bold"> ${data.pricing[2].price} <br> ${data.pricing[2].plan}</p>
+             <p class="text-success fw-bold"> ${data.pricing[2].price ? data.pricing[2].price : "Free Cost"} <br> ${data.pricing[2].plan}</p>
             </div>
           </div>
 
@@ -216,12 +217,18 @@ const displayModalDetails =(data) =>{
           <div class="col-sm-12 col-md-6 ">
             <div class="p-3  bg-light rounded-4">
               <p class="fw-bold fs-3">Features</p>
+              <ul>
+              ${modalFeaturesShow(data.features)}
+              </ul>
             </div>
           </div>
 
           <div class="col-sm-12 col-md-6 ">
             <div class="p-3  bg-light rounded-4">
               <p class="fw-bold fs-3">Integrations</p>
+             
+             <ul> ${integrationsItemShow(data.integrations)} </ul> 
+              
             </div>
 
           </div>
@@ -234,15 +241,15 @@ const displayModalDetails =(data) =>{
         <div class="card" >
 
           <div class="" >
-            <img src="${data.image_link[0]}" class="card-img-top img-fluid rounded-5 p-3" alt="..." >
+            <img src="${data.image_link[0]}" class="image-size card-img-top img-fluid rounded-5 p-3" alt="..." >
            <div class="">
-            <button class="position_accuracy_btn bg-danger border-0 rounded-3 text-white" style="position: relative; bottom: 320px; left: 350px;"> <span> ${data.accuracy.score} </span> accuracy</button>
+            <button class="position_accuracy_btn bg-danger border-0 rounded-3 text-white" style="position: relative; bottom: 210px; left: 350px;"> <span> ${data.accuracy.score *100}% </span> accuracy</button>
            </div>
 
           </div>
           <div class="card-body text-center">
-            <h5 class="card-title fw-bold">${data.input_output_examples[0].input}</h5>
-            <p class="card-text">${data.input_output_examples[0].output}</p>
+            <h5 class="card-title fw-bold">${data.input_output_examples[0].input ? data.input_output_examples[0].input : "Opps! Not Available"} </h5>
+            <p class="card-text">${data.input_output_examples[0].output ?data.input_output_examples[0].output : "Not Available"}</p>
           </div>
 
         </div>
@@ -253,4 +260,24 @@ const displayModalDetails =(data) =>{
 
 </div>
   `
+}
+
+// modal feature show
+const modalFeaturesShow = modalfeature =>{
+  let featureItem =''
+  
+  Object.keys(modalfeature).forEach( data =>{
+    featureItem += `<li class="text-muted">${modalfeature[data].feature_name}</li>`
+  })
+  
+  return featureItem;
+}
+
+// list item get by dynamically orderd list
+const integrationsItemShow = integrations =>{
+  let integrationsItem ='';
+  for(let i=0;i<integrations.length;i++){
+    integrationsItem += `<li>${integrations[i]}</li>`
+  }
+  return integrationsItem;
 }
