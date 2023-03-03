@@ -39,7 +39,7 @@ const displayAiData = (aiDatas) => {
             <span>${aiData.published_in}</span>
             </div>
            <div class="pt-3 ">
-           <button id="" class="border-0 rounded-circle text-danger text-bg-danger bg-opacity-25" onclick=""> <i class="fa-solid fa-arrow-right "></i></button>
+           <button id="" data-bs-toggle="modal" data-bs-target="#exampleModal"  class="border-0 rounded-circle text-danger text-bg-danger bg-opacity-25" onclick=""> <i class="fa-solid fa-arrow-right "></i></button>
            </div>
         </div>
       </div>
@@ -54,7 +54,7 @@ const displayAiData = (aiDatas) => {
 document.getElementById('see_more_btn').addEventListener('click', function(){
   // start spinner when click see more button
     toggleSpinner(true);
-    console.log(allData);
+    // console.log(allData);
     const aiDataContainer = document.getElementById("aiData_container");
     aiDataContainer.innerHTML ='';
     allData.forEach((aiData) => {
@@ -80,7 +80,7 @@ document.getElementById('see_more_btn').addEventListener('click', function(){
           <span>${aiData.published_in}</span>
           </div>
          <div class="pt-3 ">
-         <button id="" class="border-0 rounded-circle text-danger text-bg-danger bg-opacity-25" onclick=""> <i class="fa-solid fa-arrow-right "></i></button>
+         <button id="" data-bs-toggle="modal" data-bs-target="#exampleModal" class="border-0 rounded-circle text-danger text-bg-danger bg-opacity-25" onclick=""> <i class="fa-solid fa-arrow-right "></i></button>
          </div>
       </div>
     </div>
@@ -95,6 +95,11 @@ document.getElementById('see_more_btn').addEventListener('click', function(){
     toggleSpinner(false);
     
 })
+
+
+// const allInnerData = (aiData,aiDataContainer) =>{
+
+// }
 
 
 // list item get by dynamically orderd list
@@ -115,5 +120,55 @@ const featuresItemShow = feature =>{
       loaderSection.classList.add("d-none");
     }
   };
+
+  // sorting data card by date
+  document.getElementById("sorting_btn").addEventListener('click',function(){
+   
+    allData.sort(function(a, b) {
+        var dateA = new Date(a.published_in);
+        var dateB = new Date(b.published_in);
+        return dateA - dateB;
+      }); 
+    //  start loder
+    toggleSpinner(true)
+   const aiDataContainer = document.getElementById('aiData_container')
+   aiDataContainer.innerHTML=''
+   
+   allData.forEach((aiData) => {
+    const aiDataDiv = document.createElement("div");
+    aiDataDiv.classList.add("col");
+    // set innerHtml to show the aiData in dsiplay
+    aiDataDiv.innerHTML = `
+    <div class="card h-100">
+    <img src="${aiData.image}" class="card-img-top rounded img-fluid p-3" alt="...">
+    <div class="card-body">
+      <h5 class="card-title fs-3 fw-bold">Features</h5>
+      <p class="card-text">
+      <ol class="list-group list-group-numbered ">
+      ${featuresItemShow(aiData.features)}
+          </ol>
+      </p>
+    </div>
+    <hr class="mx-3">
+    <div class="px-3 pb-3 d-flex justify-content-between">
+        <div>
+            <h5 class="card-title fs-4 fw-bold">${aiData.name}</h5>
+            <span><i class="fa-regular fa-calendar-days"></i> </span>
+        <span>${aiData.published_in}</span>
+        </div>
+       <div class="pt-3 ">
+       <button id="" data-bs-toggle="modal" data-bs-target="#exampleModal" class="border-0 rounded-circle text-danger text-bg-danger bg-opacity-25" onclick=""> <i class="fa-solid fa-arrow-right "></i></button>
+       </div>
+    </div>
+  </div>
+        `;
+
+    //  append child the container div
+    aiDataContainer.appendChild(aiDataDiv);
+  });
+  toggleSpinner(false)
+   document.getElementById('see_more_btn').classList.add('d-none')
+})
+
 
 loadData();
