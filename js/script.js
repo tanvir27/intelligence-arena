@@ -243,7 +243,7 @@ const displayModalDetails =(data) =>{
           <div class="" >
             <img src="${data.image_link[0]}" class="image-size card-img-top img-fluid rounded-5 p-3" alt="..." >
            <div class="">
-            <button class="position_accuracy_btn bg-danger border-0 rounded-3 text-white" style="position: relative; bottom: 210px; left: 350px;"> <span> ${data.accuracy.score *100}% </span> accuracy</button>
+            ${modalAccuracyShow(data.accuracy.score)}
            </div>
 
           </div>
@@ -280,4 +280,15 @@ const integrationsItemShow = integrations =>{
     integrationsItem += `<li>${integrations[i]}</li>`
   }
   return integrationsItem;
+}
+// fix null accuracy
+const modalAccuracyShow = accuracy =>{
+  let modalAccuracy = '';
+  if(accuracy === null){
+    modalAccuracy = '';
+  }
+  else{
+    modalAccuracy = `<button class="position_accuracy_btn bg-danger border-0 rounded-3 text-white" style="position: relative; bottom: 210px; left: 350px;"> <span> ${accuracy *100}% </span> accuracy</button>`
+  }
+  return modalAccuracy;
 }
