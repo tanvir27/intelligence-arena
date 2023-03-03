@@ -1,28 +1,31 @@
+// store all the data here
 let allData = [];
-// fetch the api 
+// fetch the api
 const loadData = () => {
-    fetch(`https://openapi.programming-hero.com/api/ai/tools`)
-    .then(res => res.json())
-    .then(data => displayAiData((data.data.tools)))
+  fetch(`https://openapi.programming-hero.com/api/ai/tools`)
+    .then((res) => res.json())
+    .then((data) => displayAiData(data.data.tools));
 };
 
 // display all data using this function
 const displayAiData = (aiDatas) => {
   // start loader before show the data
   toggleSpinner(true);
-    const aiDataContainer = document.getElementById("aiData_container"); // get the container by id
-    // aiDataContainer.textContent ='';
-    allData = aiDatas;
-    // console.log(allData);
-    aiDatas = aiDatas.slice(0,6);
-    // console.log(allData);
-    aiDatas.forEach((aiData) => {
-        const aiDataDiv = document.createElement("div");
-        aiDataDiv.classList.add("col");
-        // set innerHtml to show the aiData in dsiplay
-        aiDataDiv.innerHTML = `
+  const aiDataContainer = document.getElementById("aiData_container"); // get the container by id
+  // aiDataContainer.textContent ='';
+  allData = aiDatas;
+  // console.log(allData);
+  aiDatas = aiDatas.slice(0, 6);
+  // console.log(allData);
+  aiDatas.forEach((aiData) => {
+    const aiDataDiv = document.createElement("div");
+    aiDataDiv.classList.add("col");
+    // set innerHtml to show the aiData in dsiplay
+    aiDataDiv.innerHTML = `
         <div class="card h-100">
-        <img src="${aiData.image}" class="card-img-top rounded img-fluid p-3" alt="...">
+        <img src="${
+          aiData.image
+        }" class="card-img-top rounded img-fluid p-3" alt="...">
         <div class="card-body">
           <h5 class="card-title fs-3 fw-bold">Features</h5>
           <p class="card-text">
@@ -39,31 +42,36 @@ const displayAiData = (aiDatas) => {
             <span>${aiData.published_in}</span>
             </div>
            <div class="pt-3 ">
-           <button id="" data-bs-toggle="modal" data-bs-target="#exampleModal"  class="border-0 rounded-circle text-danger text-bg-danger bg-opacity-25" onclick="loadModalDetails('${aiData.id}')"> <i class="fa-solid fa-arrow-right "></i></button>
+           <button id="" data-bs-toggle="modal" data-bs-target="#exampleModal"  class="border-0 rounded-circle text-danger text-bg-danger bg-opacity-25" onclick="loadModalDetails('${
+             aiData.id
+           }')"> <i class="fa-solid fa-arrow-right "></i></button>
            </div>
         </div>
       </div>
             `;
-        //  append child the aiData container div
-        aiDataContainer.appendChild(aiDataDiv);
-      });
-      // loader stop after show the data
-      toggleSpinner(false);
-}
-
-document.getElementById('see_more_btn').addEventListener('click', function(){
+    //  append child the aiData container div
+    aiDataContainer.appendChild(aiDataDiv);
+  });
+  // loader stop after show the data
+  toggleSpinner(false);
+};
+// call the function
+loadData();
+document.getElementById("see_more_btn").addEventListener("click", function () {
   // start spinner when click see more button
-    toggleSpinner(true);
-    // console.log(allData);
-    const aiDataContainer = document.getElementById("aiData_container");
-    aiDataContainer.innerHTML ='';
-    allData.forEach((aiData) => {
-      const aiDataDiv = document.createElement("div");
-      aiDataDiv.classList.add("col");
-      // set innerHtml to show the aiData in dsiplay
-      aiDataDiv.innerHTML = `
+  toggleSpinner(true);
+  // console.log(allData);
+  const aiDataContainer = document.getElementById("aiData_container");
+  aiDataContainer.innerHTML = "";
+  allData.forEach((aiData) => {
+    const aiDataDiv = document.createElement("div");
+    aiDataDiv.classList.add("col");
+    // set innerHtml to show the aiData in dsiplay
+    aiDataDiv.innerHTML = `
       <div class="card h-100">
-      <img src="${aiData.image}" class="card-img-top rounded img-fluid p-3" alt="...">
+      <img src="${
+        aiData.image
+      }" class="card-img-top rounded img-fluid p-3" alt="...">
       <div class="card-body">
         <h5 class="card-title fs-3 fw-bold">Features</h5>
         <p class="card-text">
@@ -81,67 +89,67 @@ document.getElementById('see_more_btn').addEventListener('click', function(){
           </div>
          <div class="pt-3 ">
 
-         <button id="" data-bs-toggle="modal" data-bs-target="#exampleModal" class="border-0 rounded-circle text-danger text-bg-danger bg-opacity-25" onclick="loadModalDetails('${aiData.id}')"> <i class="fa-solid fa-arrow-right "></i></button>
+         <button id="" data-bs-toggle="modal" data-bs-target="#exampleModal" class="border-0 rounded-circle text-danger text-bg-danger bg-opacity-25" onclick="loadModalDetails('${
+           aiData.id
+         }')"> <i class="fa-solid fa-arrow-right "></i></button>
          </div>
       </div>
     </div>
           `;
-  
-      //  append child the container div
-      aiDataContainer.appendChild(aiDataDiv);
-    });
-    // for not showing see more button after click thhis button
-    document.getElementById('see_more_btn').classList.add('d-none');
-    // stop loader when append all card
-    toggleSpinner(false);
-    
-})
 
+    //  append child the container div
+    aiDataContainer.appendChild(aiDataDiv);
+  });
+  // for not showing see more button after click thhis button
+  document.getElementById("see_more_btn").classList.add("d-none");
+  // stop loader when append all card
+  toggleSpinner(false);
+});
 
 // const allInnerData = (aiData,aiDataContainer) =>{
 
 // }
 
-
 // list item get by dynamically orderd list
-const featuresItemShow = feature =>{
-  let featureItem ='';
-  for(let i=0;i<feature.length;i++){
-    featureItem += `<li class="list-group-item border-0">${feature[i]}</li>`
+const featuresItemShow = (feature) => {
+  let featureItem = "";
+  for (let i = 0; i < feature.length; i++) {
+    featureItem += `<li class="list-group-item border-0">${feature[i]}</li>`;
   }
   return featureItem;
-}
+};
 
- // loader part 
- const toggleSpinner = (isLoading) => {
-    const loaderSection = document.getElementById("loader");
-    if (isLoading) {
-      loaderSection.classList.remove("d-none");
-    } else {
-      loaderSection.classList.add("d-none");
-    }
-  };
+// loader part
+const toggleSpinner = (isLoading) => {
+  const loaderSection = document.getElementById("loader");
+  if (isLoading) {
+    loaderSection.classList.remove("d-none");
+  } else {
+    loaderSection.classList.add("d-none");
+  }
+};
 
-  // sorting data card by date
-  document.getElementById("sorting_btn").addEventListener('click',function(){
-   
-    allData.sort(function(a, b) {
-        var dateA = new Date(a.published_in);
-        var dateB = new Date(b.published_in);
-        return dateA - dateB;
-      }); 
-    //  start loder
-    toggleSpinner(true)
-   const aiDataContainer = document.getElementById('aiData_container')
-   aiDataContainer.innerHTML=''
-   
-   allData.forEach((aiData) => {
+// sorting data card by date
+document.getElementById("sorting_btn").addEventListener("click", function () {
+  allData.sort(function (a, b) {
+    var dateA = new Date(a.published_in);
+    var dateB = new Date(b.published_in);
+    return dateA - dateB;
+  });
+  //  start loder
+  toggleSpinner(true);
+  const aiDataContainer = document.getElementById("aiData_container");
+  aiDataContainer.innerHTML = "";
+
+  allData.forEach((aiData) => {
     const aiDataDiv = document.createElement("div");
     aiDataDiv.classList.add("col");
     // set innerHtml to show the aiData in dsiplay
     aiDataDiv.innerHTML = `
     <div class="card h-100">
-    <img src="${aiData.image}" class="card-img-top rounded img-fluid p-3" alt="...">
+    <img src="${
+      aiData.image
+    }" class="card-img-top rounded img-fluid p-3" alt="...">
     <div class="card-body">
       <h5 class="card-title fs-3 fw-bold">Features</h5>
       <p class="card-text">
@@ -159,7 +167,9 @@ const featuresItemShow = feature =>{
         </div>
        <div class="pt-3 ">
 
-       <button id="" data-bs-toggle="modal" data-bs-target="#exampleModal" class="border-0 rounded-circle text-danger text-bg-danger bg-opacity-25" onclick="loadModalDetails('${aiData.id}')"> <i class="fa-solid fa-arrow-right "></i></button>
+       <button id="" data-bs-toggle="modal" data-bs-target="#exampleModal" class="border-0 rounded-circle text-danger text-bg-danger bg-opacity-25" onclick="loadModalDetails('${
+         aiData.id
+       }')"> <i class="fa-solid fa-arrow-right "></i></button>
 
        </div>
     </div>
@@ -169,25 +179,24 @@ const featuresItemShow = feature =>{
     //  append child the container div
     aiDataContainer.appendChild(aiDataDiv);
   });
-  toggleSpinner(false)
-   document.getElementById('see_more_btn').classList.add('d-none')
-})
+  toggleSpinner(false);
+  document.getElementById("see_more_btn").classList.add("d-none");
+});
 
-loadData();
-
-// modal section 
-const loadModalDetails = id => {
-  fetch(`https://openapi.programming-hero.com/api/ai/tool/${id}`)
-  .then(res => res.json())
-  .then(data => displayModalDetails((data.data)))
+// modal section fetch using async
+const loadModalDetails = async (id) => {
+  const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  displayModalDetails(data.data);
 };
 
 //declare globally variable
 let dataItem = 0;
 // display modal details
-const displayModalDetails =(data) =>{
+const displayModalDetails = (data) => {
   // console.log(data);
-  const modalBody = document.getElementById('modal-body');
+  const modalBody = document.getElementById("modal-body");
   modalBody.innerHTML = `
   <div class="container-fluid">
   <div class="row g-4 m-auto">
@@ -198,19 +207,19 @@ const displayModalDetails =(data) =>{
         <div class="row g-2 text-center">
           <div class="col-sm-12 col-md-4  ">
             <div class="p-3 text-success fw-bold border bg-light rounded-4">
-            ${pricingShow(data.pricing,dataItem=0)}
+            ${pricingShow(data.pricing, (dataItem = 0))}
             </div>
           </div>
 
           <div class="col-sm-12 col-md-4 ">
             <div class="p-3 text-warning fw-bold border bg-light rounded-4">
-            ${pricingShow(data.pricing,dataItem=1)}
+            ${pricingShow(data.pricing, (dataItem = 1))}
             </div>
           </div>
 
           <div class="col-sm-12 col-md-4 ">
             <div class="p-3 text-success fw-bold border bg-light rounded-4">
-            ${pricingShow(data.pricing,dataItem=2)}
+            ${pricingShow(data.pricing, (dataItem = 2))}
             </div>
           </div>
 
@@ -242,7 +251,9 @@ const displayModalDetails =(data) =>{
         <div class="card" >
 
           <div class="" >
-            <img src="${data.image_link[0]}" class="image-size card-img-top img-fluid rounded-5 p-3" alt="..." >
+            <img src="${
+              data.image_link[0]
+            }" class="image-size card-img-top img-fluid rounded-5 p-3" alt="..." >
            <div class="">
             ${modalAccuracyShow(data.accuracy.score)}
            </div>
@@ -258,66 +269,66 @@ const displayModalDetails =(data) =>{
   </div>
 
 </div>
-  `
-}
+  `;
+};
 
 // modal pricing show
-const pricingShow =(pricingData,items)=> {
-  let featurePricing = ""
-  if(pricingData==null){
-    featurePricing= `<p class="text-center m-3 ">Data not Available</p>`
-  }else{
-    featurePricing=` <p class="text-center m-3 ">${pricingData[items].price } <br> ${pricingData[items].plan  }</p>`
+const pricingShow = (pricingData, items) => {
+  let featurePricing = "";
+  if (pricingData == null) {
+    featurePricing = `<p class="text-center m-3 ">Data not Available</p>`;
+  } else {
+    featurePricing = ` <p class="text-center m-3 ">${pricingData[items].price} <br> ${pricingData[items].plan}</p>`;
   }
-  return featurePricing
-}
+  return featurePricing;
+};
 
-// modal input ouput show 
-const inputOutputShow = modalInputOutput=> {
-  let featureInputOutput = ""
-  if(modalInputOutput==null){
-    featureInputOutput=` <h5 class="card-title">Not Found Anythhing</h5>
-      <p class="card-text">Data Not Found</p>`
-  }else{
-    featureInputOutput=` <h5 class="card-title">${modalInputOutput[0].input}</h5>
-      <p class="card-text">${modalInputOutput[0].output}</p>`
+// modal input ouput show
+const inputOutputShow = (modalInputOutput) => {
+  let featureInputOutput = "";
+  if (modalInputOutput == null) {
+    featureInputOutput = ` <h5 class="card-title">Not Found Anything</h5>
+      <p class="card-text">Data Not Found</p>`;
+  } else {
+    featureInputOutput = ` <h5 class="card-title">${modalInputOutput[0].input}</h5>
+      <p class="card-text">${modalInputOutput[0].output}</p>`;
   }
-  return featureInputOutput
-}
+  return featureInputOutput;
+};
 
 // modal feature show
-const modalFeaturesShow = modalfeature =>{
-  let featureItem =''
-  Object.keys(modalfeature).forEach( data =>{
-    featureItem += `<li class="text-muted">${modalfeature[data].feature_name}</li>`
-  })
-  
+const modalFeaturesShow = (modalfeature) => {
+  let featureItem = "";
+  Object.keys(modalfeature).forEach((data) => {
+    featureItem += `<li class="text-muted">${modalfeature[data].feature_name}</li>`;
+  });
+
   return featureItem;
-}
+};
 
 // modal integrations show
-const integrationsItemShow = integrations =>{
-  let integrationsItem ='';
-  if(integrations!==null) {
-    for(let i=0;i<integrations.length;i++){
-      integrationsItem += `<li>${integrations[i]}</li>`
+const integrationsItemShow = (integrations) => {
+  let integrationsItem = "";
+  if (integrations !== null) {
+    for (let i = 0; i < integrations.length; i++) {
+      integrationsItem += `<li>${integrations[i]}</li>`;
     }
+  } else {
+    integrationsItem += `<li>Data not Found</li>`;
   }
-  else{
-    integrationsItem += `<li>Data not Found</li>`
-  }
- 
+
   return integrationsItem;
-}
+};
 
 // fix null accuracy
-const modalAccuracyShow = accuracy =>{
-  let modalAccuracy = '';
-  if(accuracy === null){
-    modalAccuracy = '';
-  }
-  else{
-    modalAccuracy = `<button class="position_accuracy_btn bg-danger border-0 rounded-3 text-white" style="position: relative; bottom: 210px; left: 350px;"> <span> ${accuracy *100}% </span> accuracy</button>`
+const modalAccuracyShow = (accuracy) => {
+  let modalAccuracy = "";
+  if (accuracy === null) {
+    modalAccuracy = "";
+  } else {
+    modalAccuracy = `<button class="position_accuracy_btn bg-danger border-0 rounded-3 text-white" style="position: relative; bottom: 210px; left: 350px;"> <span> ${
+      accuracy * 100
+    }% </span> accuracy</button>`;
   }
   return modalAccuracy;
-}
+};
