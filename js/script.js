@@ -4,11 +4,10 @@ const loadData = () => {
     .then(data => displayAiData((data.data.tools)))
 };
 
-loadData();
+
 
 const displayAiData = (aiDatas) => {
     const aiDataContainer = document.getElementById("aiData_container"); // get the container by id
-
     aiDatas.forEach((aiData) => {
         const aiDataDiv = document.createElement("div");
         aiDataDiv.classList.add("col");
@@ -19,7 +18,9 @@ const displayAiData = (aiDatas) => {
         <div class="card-body">
           <h5 class="card-title fs-3 fw-bold">Features</h5>
           <p class="card-text">
-           <p>${aiData.features[0]}</p>
+          <ol class="list-group list-group-numbered ">
+          ${featuresItemShow(aiData.features)}
+              </ol>
           </p>
         </div>
         <hr class="mx-3">
@@ -41,20 +42,33 @@ const displayAiData = (aiDatas) => {
       });
 
       // loader stopp 
-      toggleSpinner(false);
+      // toggleSpinner(false);
 }
 
-document.getElementById('see_more_btn').addEventListener('click', function(){
-    console.log('object');
-    toggleSpinner(true);
-})
+// document.getElementById('see_more_btn').addEventListener('click', function(){
+//     console.log('object');
+//     toggleSpinner(true);
+// })
+
+
+// list item get by dynamically orderd list
+const featuresItemShow = feature =>{
+  let featureItem ='';
+  for(let i=0;i<feature.length;i++){
+    featureItem += `<li class="list-group-item border-0">${feature[i]}</li>`
+  }
+  return featureItem;
+}
+
 
  // loader part 
- const toggleSpinner = (isLoading) => {
-    const loaderSection = document.getElementById("loader");
-    if (isLoading) {
-      loaderSection.classList.remove("d-none");
-    } else {
-      loaderSection.classList.add("d-none");
-    }
-  };
+//  const toggleSpinner = (isLoading) => {
+//     const loaderSection = document.getElementById("loader");
+//     if (isLoading) {
+//       loaderSection.classList.remove("d-none");
+//     } else {
+//       loaderSection.classList.add("d-none");
+//     }
+//   };
+
+loadData();
