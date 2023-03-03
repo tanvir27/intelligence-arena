@@ -182,6 +182,8 @@ const loadModalDetails = id => {
   .then(data => displayModalDetails((data.data)))
 };
 
+//declare globally variable
+let dataItem = 0;
 // display modal details
 const displayModalDetails =(data) =>{
   // console.log(data);
@@ -191,24 +193,24 @@ const displayModalDetails =(data) =>{
   <div class="row g-4 m-auto">
     <div class="col-sm-12 col-md-6 ">
       <div class="p-3  border bg-light rounded-4">
-        <p class="fs-3 fw-bold"> ${data.description ? data.description : 'Description not Available'} </p>
+        <p class="fs-3 fw-bold"> ${data.description} </p>
 
         <div class="row g-2 text-center">
           <div class="col-sm-12 col-md-4  ">
-            <div class="p-3 border bg-light rounded-4">
-            <p class="text-success fw-bold">  ${data.pricing[0].price ? data.pricing[0].price : "Free of Cost"} <br> ${data.pricing[0].plan ? data.pricing[0].plan : 'No Plan Available'}</p>
+            <div class="p-3 text-success fw-bold border bg-light rounded-4">
+            ${pricingShow(data.pricing,dataItem=0)}
             </div>
           </div>
 
           <div class="col-sm-12 col-md-4 ">
-            <div class="p-3 border bg-light rounded-4">
-            <p class="text-warning fw-bold">  ${data.pricing[1].price ? data.pricing[1].price : "Free of Cost"} <br> ${data.pricing[1].plan ? data.pricing[1].plan : 'No Plan Available'}</p>
+            <div class="p-3 text-warning fw-bold border bg-light rounded-4">
+            ${pricingShow(data.pricing,dataItem=1)}
             </div>
           </div>
 
           <div class="col-sm-12 col-md-4 ">
-            <div class="p-3 border bg-light rounded-4">
-            <p class="text-success fw-bold">  ${data.pricing[2].price ? data.pricing[2].price : "Free of Cost"} <br> ${data.pricing[2].plan ? data.pricing[2].plan : 'No Plan Available'}</p>
+            <div class="p-3 text-success fw-bold border bg-light rounded-4">
+            ${pricingShow(data.pricing,dataItem=2)}
             </div>
           </div>
 
@@ -218,7 +220,7 @@ const displayModalDetails =(data) =>{
             <div class="p-3  bg-light rounded-4">
               <p class="fw-bold fs-3">Features</p>
               <ul>
-              ${modalFeaturesShow(data.features ? data.features : 'Not found data')}
+              ${modalFeaturesShow(data.features)}
               </ul>
             </div>
           </div>
@@ -227,7 +229,7 @@ const displayModalDetails =(data) =>{
             <div class="p-3  bg-light rounded-4">
               <p class="fw-bold fs-3">Integrations</p>
              
-             <ul> ${integrationsItemShow(data.integrations ? data.integrations : 'Not found Data')} </ul> 
+             <ul> ${integrationsItemShow(data.integrations)} </ul> 
             </div>
 
           </div>
@@ -247,8 +249,7 @@ const displayModalDetails =(data) =>{
 
           </div>
           <div class="card-body text-center">
-            <h5 class="card-title fw-bold">${data.input_output_examples[0].input ? data.input_output_examples[0].input : "Opps! Not Available"} </h5>
-            <p class="card-text">${data.input_output_examples[0].output ?data.input_output_examples[0].output : "Not Available"}</p>
+          ${inputOutputShow(data.input_output_examples)}
           </div>
         </div>
       </div>
@@ -258,6 +259,30 @@ const displayModalDetails =(data) =>{
 
 </div>
   `
+}
+
+// modal pricing show
+const pricingShow =(pricingData,items)=> {
+  let featurePricing = ""
+  if(pricingData==null){
+    featurePricing= `<p class="text-center m-3 ">Data not Available</p>`
+  }else{
+    featurePricing=` <p class="text-center m-3 ">${pricingData[items].price } <br> ${pricingData[items].plan  }</p>`
+  }
+  return featurePricing
+}
+
+// modal input ouput show 
+const inputOutputShow = modalInputOutput=> {
+  let featureInputOutput = ""
+  if(modalInputOutput==null){
+    featureInputOutput=` <h5 class="card-title">Not Found Anythhing</h5>
+      <p class="card-text">Data Not Found</p>`
+  }else{
+    featureInputOutput=` <h5 class="card-title">${modalInputOutput[0].input}</h5>
+      <p class="card-text">${modalInputOutput[0].output}</p>`
+  }
+  return featureInputOutput
 }
 
 // modal feature show
@@ -271,14 +296,21 @@ const modalFeaturesShow = modalfeature =>{
   return featureItem;
 }
 
-// list item get by dynamically orderd list
+// modal integrations show
 const integrationsItemShow = integrations =>{
   let integrationsItem ='';
-  for(let i=0;i<integrations.length;i++){
-    integrationsItem += `<li>${integrations[i]}</li>`
+  if(integrations!==null) {
+    for(let i=0;i<integrations.length;i++){
+      integrationsItem += `<li>${integrations[i]}</li>`
+    }
   }
+  else{
+    integrationsItem += `<li>Data not Found</li>`
+  }
+ 
   return integrationsItem;
 }
+
 // fix null accuracy
 const modalAccuracyShow = accuracy =>{
   let modalAccuracy = '';
