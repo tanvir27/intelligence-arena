@@ -288,7 +288,6 @@ const inputOutputShow = modalInputOutput=> {
 // modal feature show
 const modalFeaturesShow = modalfeature =>{
   let featureItem =''
-  
   Object.keys(modalfeature).forEach( data =>{
     featureItem += `<li class="text-muted">${modalfeature[data].feature_name}</li>`
   })
