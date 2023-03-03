@@ -8,6 +8,7 @@ const loadData = () => {
 
 // display all data using this function
 const displayAiData = (aiDatas) => {
+  // toggleSpinner(true);
     const aiDataContainer = document.getElementById("aiData_container"); // get the container by id
     // aiDataContainer.textContent ='';
     allData = aiDatas;
@@ -50,6 +51,8 @@ const displayAiData = (aiDatas) => {
 }
 
 document.getElementById('see_more_btn').addEventListener('click', function(){
+  // start spinner when click see more button
+    toggleSpinner(true);
     console.log(allData);
     const aiDataContainer = document.getElementById("aiData_container");
     aiDataContainer.innerHTML ='';
@@ -87,6 +90,8 @@ document.getElementById('see_more_btn').addEventListener('click', function(){
     });
     // for not showing see more button after click thhis button
     document.getElementById('see_more_btn').classList.add('d-none');
+    // stop loader when append all card
+    toggleSpinner(false);
     
 })
 
@@ -101,13 +106,13 @@ const featuresItemShow = feature =>{
 }
 
  // loader part 
-//  const toggleSpinner = (isLoading) => {
-//     const loaderSection = document.getElementById("loader");
-//     if (isLoading) {
-//       loaderSection.classList.remove("d-none");
-//     } else {
-//       loaderSection.classList.add("d-none");
-//     }
-//   };
+ const toggleSpinner = (isLoading) => {
+    const loaderSection = document.getElementById("loader");
+    if (isLoading) {
+      loaderSection.classList.remove("d-none");
+    } else {
+      loaderSection.classList.add("d-none");
+    }
+  };
 
 loadData();
