@@ -191,24 +191,24 @@ const displayModalDetails =(data) =>{
   <div class="row g-4 m-auto">
     <div class="col-sm-12 col-md-6 ">
       <div class="p-3  border bg-light rounded-4">
-        <p class="fs-3 fw-bold"> ${data.description} </p>
+        <p class="fs-3 fw-bold"> ${data.description ? data.description : 'Description not Available'} </p>
 
         <div class="row g-2 text-center">
           <div class="col-sm-12 col-md-4  ">
             <div class="p-3 border bg-light rounded-4">
-            <p class="text-success fw-bold">  ${data.pricing[0].price} <br> ${data.pricing[0].plan}</p>
+            <p class="text-success fw-bold">  ${data.pricing[0].price ? data.pricing[0].price : "Free of Cost"} <br> ${data.pricing[0].plan ? data.pricing[0].plan : 'No Plan Available'}</p>
             </div>
           </div>
 
           <div class="col-sm-12 col-md-4 ">
             <div class="p-3 border bg-light rounded-4">
-             <p class="text-warning fw-bold">${data.pricing[1].price} <br> ${data.pricing[1].plan}</p>
+            <p class="text-warning fw-bold">  ${data.pricing[1].price ? data.pricing[1].price : "Free of Cost"} <br> ${data.pricing[1].plan ? data.pricing[1].plan : 'No Plan Available'}</p>
             </div>
           </div>
 
           <div class="col-sm-12 col-md-4 ">
             <div class="p-3 border bg-light rounded-4">
-             <p class="text-success fw-bold"> ${data.pricing[2].price ? data.pricing[2].price : "Free Cost"} <br> ${data.pricing[2].plan}</p>
+            <p class="text-success fw-bold">  ${data.pricing[2].price ? data.pricing[2].price : "Free of Cost"} <br> ${data.pricing[2].plan ? data.pricing[2].plan : 'No Plan Available'}</p>
             </div>
           </div>
 
@@ -218,7 +218,7 @@ const displayModalDetails =(data) =>{
             <div class="p-3  bg-light rounded-4">
               <p class="fw-bold fs-3">Features</p>
               <ul>
-              ${modalFeaturesShow(data.features)}
+              ${modalFeaturesShow(data.features ? data.features : 'Not found data')}
               </ul>
             </div>
           </div>
@@ -227,8 +227,7 @@ const displayModalDetails =(data) =>{
             <div class="p-3  bg-light rounded-4">
               <p class="fw-bold fs-3">Integrations</p>
              
-             <ul> ${integrationsItemShow(data.integrations)} </ul> 
-              
+             <ul> ${integrationsItemShow(data.integrations ? data.integrations : 'Not found Data')} </ul> 
             </div>
 
           </div>
@@ -251,7 +250,6 @@ const displayModalDetails =(data) =>{
             <h5 class="card-title fw-bold">${data.input_output_examples[0].input ? data.input_output_examples[0].input : "Opps! Not Available"} </h5>
             <p class="card-text">${data.input_output_examples[0].output ?data.input_output_examples[0].output : "Not Available"}</p>
           </div>
-
         </div>
       </div>
     </div>
