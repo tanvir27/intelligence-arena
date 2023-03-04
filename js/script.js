@@ -41,8 +41,8 @@ const displayAiData = (aiDatas) => {
         <div class="px-3 pb-3 d-flex justify-content-between">
             <div>
                 <h5 class="card-title fs-4 fw-bold">${aiData.name}</h5>
-                <span><i class="fa-regular fa-calendar-days"></i> </span>
-            <span>${aiData.published_in}</span>
+               
+                ${formateDate(aiData.published_in)}
             </div>
            <div class="pt-3 ">
            <button id="" data-bs-toggle="modal" data-bs-target="#exampleModal"  class="border-0 rounded-circle text-danger text-bg-danger bg-opacity-25" onclick="loadModalDetails('${
@@ -59,15 +59,14 @@ const displayAiData = (aiDatas) => {
   toggleSpinner(false);
 };
 
-// see more button function starts here 
+// see more button function starts here
 document.getElementById("see_more_btn").addEventListener("click", function () {
   // start spinner when click see more button
   toggleSpinner(true);
   // console.log(allData);
   const aiDataContainer = document.getElementById("aiData_container");
-  aiDataContainer.innerHTML = "";  
+  aiDataContainer.innerHTML = "";
   allData.forEach((aiData) => {
-     
     const aiDataDiv = document.createElement("div");
     aiDataDiv.classList.add("col");
     // set innerHtml to show the aiData in dsiplay
@@ -88,8 +87,8 @@ document.getElementById("see_more_btn").addEventListener("click", function () {
       <div class="px-3 pb-3 d-flex justify-content-between">
           <div>
               <h5 class="card-title fs-4 fw-bold">${aiData.name}</h5>
-              <span><i class="fa-regular fa-calendar-days"></i> </span>
-          <span>${aiData.published_in}</span>
+            
+              ${formateDate(aiData.published_in)}
           </div>
          <div class="pt-3 ">
 
@@ -109,7 +108,6 @@ document.getElementById("see_more_btn").addEventListener("click", function () {
   // stop loader when append all card
   toggleSpinner(false);
 });
-
 
 // list item get by dynamically orderd list
 const featuresItemShow = (feature) => {
@@ -132,13 +130,13 @@ const toggleSpinner = (isLoading) => {
 
 // sorting data card by date
 document.getElementById("sorting_btn").addEventListener("click", function () {
-  toggleSpinner(true); 
+  toggleSpinner(true);
   allData.sort(function (a, b) {
     var dateA = new Date(a.published_in);
     var dateB = new Date(b.published_in);
     return dateA - dateB;
   });
-  
+
   const aiDataContainer = document.getElementById("aiData_container");
   aiDataContainer.innerHTML = "";
 
@@ -163,8 +161,8 @@ document.getElementById("sorting_btn").addEventListener("click", function () {
     <div class="px-3 pb-3 d-flex justify-content-between">
         <div>
             <h5 class="card-title fs-4 fw-bold">${aiData.name}</h5>
-            <span><i class="fa-regular fa-calendar-days"></i> </span>
-        <span>${aiData.published_in}</span>
+             ${formateDate(aiData.published_in)}
+       
         </div>
        <div class="pt-3 ">
 
@@ -183,7 +181,6 @@ document.getElementById("sorting_btn").addEventListener("click", function () {
   toggleSpinner(false);
   document.getElementById("see_more_btn").classList.add("d-none");
 });
-
 
 // modal section fetch using async
 const loadModalDetails = async (id) => {
@@ -273,8 +270,28 @@ const displayModalDetails = (data) => {
 
 </div>
   `;
-  // stop loader 
+  // stop loader
   toggleSpinner(false);
+};
+
+//  date formatting functions
+const formateDate = (formate_date) => {
+  let featureDate = "";
+  if (formate_date == null) {
+    featureDate += `<p> <i class="fa-solid fa-calendar-days"></i>Not Found Anything</p>`;
+  } else {
+    // parse the date in string
+    const date = new Date(formate_date);
+    // format the date
+    const formatedDate = date.toLocaleString("en-US", {
+      day: "numeric",
+      month: "numeric",
+      year: "numeric",
+      // day: "numeric",
+    });
+    featureDate += `<p> <i class="fa-solid fa-calendar-days"></i> ${formatedDate}</p>`;
+  }
+  return featureDate;
 };
 
 // modal pricing show
