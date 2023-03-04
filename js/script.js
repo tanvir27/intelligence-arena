@@ -1,7 +1,10 @@
 // store all the data here
 let allData = [];
 // fetch the api
+
 const loadData = () => {
+  // start loader before show the data
+  toggleSpinner(true);
   fetch(`https://openapi.programming-hero.com/api/ai/tools`)
     .then((res) => res.json())
     .then((data) => displayAiData(data.data.tools));
@@ -10,7 +13,7 @@ const loadData = () => {
 // display all data using this function
 const displayAiData = (aiDatas) => {
   // start loader before show the data
-  toggleSpinner(true);
+  // toggleSpinner(true);
   const aiDataContainer = document.getElementById("aiData_container"); // get the container by id
   // aiDataContainer.textContent ='';
   allData = aiDatas;
@@ -55,15 +58,16 @@ const displayAiData = (aiDatas) => {
   // loader stop after show the data
   toggleSpinner(false);
 };
-// call the function
-loadData();
+
+// see more button function starts here 
 document.getElementById("see_more_btn").addEventListener("click", function () {
   // start spinner when click see more button
   toggleSpinner(true);
   // console.log(allData);
   const aiDataContainer = document.getElementById("aiData_container");
-  aiDataContainer.innerHTML = "";
+  aiDataContainer.innerHTML = "";  
   allData.forEach((aiData) => {
+     
     const aiDataDiv = document.createElement("div");
     aiDataDiv.classList.add("col");
     // set innerHtml to show the aiData in dsiplay
@@ -106,9 +110,6 @@ document.getElementById("see_more_btn").addEventListener("click", function () {
   toggleSpinner(false);
 });
 
-// const allInnerData = (aiData,aiDataContainer) =>{
-
-// }
 
 // list item get by dynamically orderd list
 const featuresItemShow = (feature) => {
@@ -131,13 +132,13 @@ const toggleSpinner = (isLoading) => {
 
 // sorting data card by date
 document.getElementById("sorting_btn").addEventListener("click", function () {
+  toggleSpinner(true); 
   allData.sort(function (a, b) {
     var dateA = new Date(a.published_in);
     var dateB = new Date(b.published_in);
     return dateA - dateB;
   });
-  //  start loder
-  toggleSpinner(true);
+  
   const aiDataContainer = document.getElementById("aiData_container");
   aiDataContainer.innerHTML = "";
 
@@ -183,8 +184,10 @@ document.getElementById("sorting_btn").addEventListener("click", function () {
   document.getElementById("see_more_btn").classList.add("d-none");
 });
 
+
 // modal section fetch using async
 const loadModalDetails = async (id) => {
+  toggleSpinner(true);
   const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
   const res = await fetch(url);
   const data = await res.json();
@@ -270,6 +273,8 @@ const displayModalDetails = (data) => {
 
 </div>
   `;
+  // stop loader 
+  toggleSpinner(false);
 };
 
 // modal pricing show
@@ -332,3 +337,5 @@ const modalAccuracyShow = (accuracy) => {
   }
   return modalAccuracy;
 };
+// call the function
+loadData();
