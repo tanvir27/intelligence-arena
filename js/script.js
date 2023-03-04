@@ -300,7 +300,14 @@ const pricingShow = (pricingData, items) => {
   if (pricingData == null) {
     featurePricing = `<p class="text-center m-3 ">Data not Available</p>`;
   } else {
-    featurePricing = ` <p class="text-center m-3 ">${pricingData[items].price} <br> ${pricingData[items].plan}</p>`;
+
+    if(pricingData[items].price == 0){
+      featurePricing = ` <p class="text-center m-3 ">Free Cost <br>
+      ${pricingData[items].plan}</p>`;
+    }
+    else{
+      featurePricing = ` <p class="text-center m-3 ">${pricingData[items].price} <br> ${pricingData[items].plan}</p>`;
+    }
   }
   return featurePricing;
 };
