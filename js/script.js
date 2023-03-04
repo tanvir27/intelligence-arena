@@ -1,7 +1,7 @@
 // store all the data here
 let allData = [];
-// fetch the api
 
+// fetch the api
 const loadData = () => {
   // start loader before show the data
   toggleSpinner(true);
@@ -109,7 +109,7 @@ document.getElementById("see_more_btn").addEventListener("click", function () {
   toggleSpinner(false);
 });
 
-// list item get by dynamically orderd list
+// list item get by dynamically orderd list in normal card section
 const featuresItemShow = (feature) => {
   let featureItem = "";
   for (let i = 0; i < feature.length; i++) {
@@ -118,7 +118,7 @@ const featuresItemShow = (feature) => {
   return featureItem;
 };
 
-// loader part
+// loader or spinner function for loading before show the data
 const toggleSpinner = (isLoading) => {
   const loaderSection = document.getElementById("loader");
   if (isLoading) {
@@ -316,16 +316,16 @@ const pricingShow = (pricingData, items) => {
 const inputOutputShow = (modalInputOutput) => {
   let featureInputOutput = "";
   if (modalInputOutput == null) {
-    featureInputOutput = ` <h5 class="card-title">Not Found Anything</h5>
-      <p class="card-text">Data Not Found</p>`;
+    featureInputOutput = ` <h5 class="card-title fw-bold">Sorry!! No Question Available</h5>
+      <p class="card-text">No! Not Yet! Take a break!!!</p>`;
   } else {
-    featureInputOutput = ` <h5 class="card-title">${modalInputOutput[0].input}</h5>
+    featureInputOutput = ` <h5 class="card-title fw-bold">${modalInputOutput[0].input}</h5>
       <p class="card-text">${modalInputOutput[0].output}</p>`;
   }
   return featureInputOutput;
 };
 
-// modal feature show
+//  modalFeatures function for features show in modal
 const modalFeaturesShow = (modalfeature) => {
   let featureItem = "";
   Object.keys(modalfeature).forEach((data) => {
@@ -349,7 +349,7 @@ const integrationsItemShow = (integrations) => {
   return integrationsItem;
 };
 
-// fix null accuracy
+// modal accuracy function for fixing null values
 const modalAccuracyShow = (accuracy) => {
   let modalAccuracy = "";
   if (accuracy === null) {
